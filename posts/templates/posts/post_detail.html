@@ -1,0 +1,15 @@
+{% extends "_layouts/base.html"  %}
+
+{% block title %}{{ object.title }}{% endblock title %}
+
+{% block content%}
+<h2>
+{{ object.title }}
+</h2>
+{% if object.thumbnail %}
+<img src="{{ object.thumbnail.url }}" style="width:250px;">
+{% endif %}
+<p>
+{{ object.content|safe }}
+</p>
+{% endblock content %}

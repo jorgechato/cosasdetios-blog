@@ -1,0 +1,24 @@
+{% extends "_layouts/base.html"  %}
+
+{% block title %}{{ block.super }}{% endblock title %}
+
+{% block content%}
+<div class="container">
+  {% for object in object_list %}
+  <h2>
+    <a href="{{ object.get_absolute_url }}">
+      {{ object.title }}
+    </a>
+  </h2>
+  {% if object.thumbnail %}
+  <img src="{{ object.thumbnail.url }}" style="width:250px;">
+  {% endif %}
+  <p>
+  {{ object.content|safe }}
+  </p>
+  <hr>
+  {% empty %}
+  <h2>NO TIENES NINGUN ARTICULO</h2>
+  {% endfor %}
+</div>
+{% endblock content %}
