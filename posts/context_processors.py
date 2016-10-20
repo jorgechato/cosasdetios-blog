@@ -1,5 +1,4 @@
 from .models import Category
-from django.core.urlresolvers import reverse
 
 
 def nav(request):
@@ -9,8 +8,7 @@ def nav(request):
             }
 
     for category in menu['categories']:
-        if request.path is category:
-            print category
-            # category['active'] = True
+        if request.path == category.get_absolute_url():
+            category.active = True
 
     return menu

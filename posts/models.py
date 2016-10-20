@@ -16,6 +16,9 @@ class Category(models.Model):
     def __str__(self):
         return self.slug
 
+    def __unicode__(self):
+            return unicode(self.slug)
+
     def save(self, *arg, **kwargs):
         self.slug = slugify(self.title)
         super(Category, self).save(*arg, **kwargs)
