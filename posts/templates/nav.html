@@ -1,0 +1,8 @@
+<nav>
+  {% for object in categories %}
+    <a href="{{ object.get_absolute_url }}">
+      {{ object.title }}
+      {{ object.active }}
+    </a>
+  {% endfor %}
+</nav>

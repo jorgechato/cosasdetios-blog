@@ -41,7 +41,7 @@ class SideBar(models.Model):
 
 class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    categories_id = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+    categories_id = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=140)
     slug = models.SlugField(max_length=140, blank=True, editable=False)
     content = RichTextField()
