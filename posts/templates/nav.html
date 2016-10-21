@@ -1,8 +1,7 @@
 <nav>
-  {% for object in categories %}
-    <a href="{{ object.get_absolute_url }}">
-      {{ object.title }}
-      {{ object.active }}
-    </a>
-  {% endfor %}
+  <ul class="nav nav-pills">
+    {% for object in categories %}
+    <li role="presentation" class="{% if object.active %}active{% endif %}"><a href="{{ object.get_absolute_url }}">{{ object.title | title }}</a></li>
+    {% endfor %}
+  </ul>
 </nav>

@@ -3,13 +3,38 @@
 {% block title %}{{ object.title }}{% endblock title %}
 
 {% block content%}
-<h2>
-{{ object.title }}
-</h2>
-{% if object.thumbnail %}
-<img src="{{ object.thumbnail.url }}" style="width:250px;">
-{% endif %}
-<p>
-{{ object.content|safe }}
-</p>
+<div class="container">
+  {% include "nav.html" %}
+
+  <div class="row">
+    <div class="col-md-8 posts">
+      <div class="post">
+        <h2>
+          <a href="{{ object.get_absolute_url }}">
+            {{ object.title }}
+          </a>
+        </h2>
+        <p>
+        <a href="{{ object.get_absolute_url }}">
+          {% if object.thumbnail %}
+          <div class="image" style="background-image: url({{ object.thumbnail.url }});"></div>
+          {% endif %}
+        </a>
+        </p>
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <p>
+            {{ object.content|safe }}
+            </p>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+    </div>
+      {% include "sidebar.html" %}
+  </div>
+</div>
 {% endblock content %}

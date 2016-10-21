@@ -1,0 +1,19 @@
+nav{
+  .active{
+    a{
+      background: none !important;
+      color: black !important;
+    }
+    border-bottom: 2px solid black;
+  }
+  li{
+    border-bottom: 2px solid white;
+    &:hover{
+      border-bottom: 2px solid black;
+      a{
+        background: none !important;
+      }
+    }
+  }
+}
+

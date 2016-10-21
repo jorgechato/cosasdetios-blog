@@ -1,4 +1,8 @@
+from datetime import date
+
 from .models import Category
+from .models import SideBar
+from .models import Post
 
 
 def nav(request):
@@ -12,3 +16,18 @@ def nav(request):
             category.active = True
 
     return menu
+
+
+def sidebar(request):
+    list_items = SideBar.objects.order_by('order')
+    posts = Post.objects.filter(public=True, published_at__lte=date.today()).order_by('?')[:5]
+    items = {
+            'items': list_items,
+            'posts': posts,
+            }
+
+    return items
+
+
+def footer(request):
+    return {}

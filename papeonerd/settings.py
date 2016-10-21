@@ -76,6 +76,8 @@ TEMPLATES = [
                     'django.contrib.messages.context_processors.messages',
                     'dynamic_preferences.processors.global_preferences',
                     'posts.context_processors.nav',
+                    'posts.context_processors.sidebar',
+                    'posts.context_processors.footer',
                     ],
                 'builtins': [
                     'papeonerd.templatetags.cowsay_tags',
