@@ -34,6 +34,7 @@ class SideBar(models.Model):
     title = models.CharField(max_length=140, blank=True, null=True)
     order = models.IntegerField()
     content = models.TextField(blank=True, null=True)
+    categories_id = models.ManyToManyField(Category, blank=True)
 
     def __str__(self):
         return self.title

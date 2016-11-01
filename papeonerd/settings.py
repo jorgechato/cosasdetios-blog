@@ -37,6 +37,9 @@ INSTALLED_APPS = [
         'django_extensions',
         'autofixture',
 
+        'storages',
+        'podcast',
+        'pagination',
         'robots',
         'dynamic_preferences',
         'gunicorn',
@@ -97,6 +100,9 @@ DYNAMIC_PREFERENCES = {
         'ENABLE_CACHE': True,
         'VALIDATE_NAMES': True,
         }
+
+# aws s3
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -203,3 +209,8 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+try:
+    from local_settings import *
+except ImportError:
+    pass

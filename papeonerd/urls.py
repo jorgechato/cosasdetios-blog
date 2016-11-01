@@ -8,7 +8,8 @@ from django.conf.urls import handler400, handler403, handler404, handler500
 
 urlpatterns = [
         url(r'^papeoadmin/', admin.site.urls),
-        url(r'^', include('posts.urls')),
+        url(r'^', include('podcast.urls')),
+        url(r'^articulos/', include('posts.urls')),
         ]
 
 # urlpatterns += staticfiles_urlpatterns()
