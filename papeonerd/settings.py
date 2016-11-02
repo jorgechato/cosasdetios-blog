@@ -78,9 +78,9 @@ TEMPLATES = [
                     'django.contrib.auth.context_processors.auth',
                     'django.contrib.messages.context_processors.messages',
                     'dynamic_preferences.processors.global_preferences',
-                    'posts.context_processors.nav',
-                    'posts.context_processors.sidebar',
-                    'posts.context_processors.footer',
+                    'papeonerd.context_processors.nav',
+                    'papeonerd.context_processors.sidebar',
+                    'papeonerd.context_processors.footer',
                     ],
                 'builtins': [
                     'papeonerd.templatetags.cowsay_tags',
@@ -100,9 +100,6 @@ DYNAMIC_PREFERENCES = {
         'ENABLE_CACHE': True,
         'VALIDATE_NAMES': True,
         }
-
-# aws s3
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -209,6 +206,11 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# podcast
+PODCAST_SINGULAR = True
+PODCAST_ID = 1
+PODCAST_PAGINATE_BY = 9
 
 try:
     from local_settings import *

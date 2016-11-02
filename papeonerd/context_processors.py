@@ -1,8 +1,8 @@
 from datetime import date
 
-from .models import Category
-from .models import SideBar
-from .models import Post
+from posts.models import Category
+from posts.models import SideBar
+from posts.models import Post
 
 
 def nav(request):

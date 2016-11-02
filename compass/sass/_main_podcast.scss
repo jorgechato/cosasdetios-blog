@@ -1,0 +1,20 @@
+.episode-number{
+  background: black;
+  color: white;
+  padding: 0 5px;
+  margin-right: 1em;
+}
+
+.first-podcast{
+  background: $main-color;
+  margin: 2em 0;
+  padding: 3em;
+
+  .podcast-poster{
+    text-align: center;
+
+    .podcast-artwork{
+      width: 90%;
+    }
+  }
+}

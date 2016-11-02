@@ -3,5 +3,6 @@
     {% for object in categories %}
     <li role="presentation" class="{% if object.active %}active{% endif %}"><a href="{{ object.get_absolute_url }}">{{ object.title | title }}</a></li>
     {% endfor %}
+    <li role="presentation"><a href="{{ show.get_absolute_feed_url }}">RSS</a></li>
   </ul>
 </nav>
