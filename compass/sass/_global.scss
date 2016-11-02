@@ -20,10 +20,12 @@ html, body {
   font-size: $font-size;
   line-height: $line-height;
   color: black;
+
   a{
     text-decoration: none;
     font-weight: bold;
   }
+
   h1, h2, h3, h4, h5, h6{
     a{
       font-weight: normal;

@@ -7,66 +7,102 @@
 
 
 {% block content %}
+<div class="container">
+  {% include "_modules/nav.html" %}
+</div>
 
-<ul>
-    {% if not podcast_singular %}
-    <li><a href="{% url 'podcast:show_list' %}">{% trans 'Podcasts' %}</a></li>
-    {% endif %}
-    <li><a href="{{ episode.show.get_absolute_url }}">{{ episode.show.title }}</a></li>
-</ul>
+<div class="first-podcast">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <span class="episode-number">
+          {% trans 'EPISODIO'%} {{ episode.index }}
+        </span>
+        <span>
+          <time datetime="{{ episode.pub_date|date:'c' }}" title="{{ episode.pub_date|date:'c' }}">{{ episode.pub_date|date:'j F Y' }}</time>
+        </span>
+        <h1>{{ episode.title | upper }}</h1>
+        {% if episode.description %}
+        <p>{{ episode.description|safe }}</p>
+        {% endif %}
+        {% if episode.enclosure %}
+        {% with enclosure=episode.enclosure %}
 
-<h1>{{ episode.title }}</h1>
+        {# Audio #}
+        {% if enclosure.type == 'audio/mpeg' or enclosure.type == 'audio/x-m4a' %}
+        <audio src="{{ enclosure.file.url }}" controls>
+          <p><a href="{{ enclosure.file.url }}">{{ episode.title }}</a></p>
+        </audio>
 
-<p>{% trans 'Episode'%} {{ episode.index }}</p>
+        {# Video #}
+        {% elif enclosure.type == 'video/mp4' or enclosure.type == 'video/x-m4v' or enclosure.type == 'video/quicktime' %}
+        <video poster="{{ enclosure.get_poster_url }}" controls>
+          <source src="{{ enclosure.file.url }}" type="{{ enclosure.type }}">
+            <p><a href="{{ enclosure.file.url }}">{{ episode.title }}</a>.</p>
+        </video>
+        {% endif %}
 
-<p><time datetime="{{ episode.pub_date|date:'c' }}" title="{{ episode.pub_date|date:'c' }}">{{ episode.pub_date|date:'j F Y' }}</time></p>
+        <p><a href="{{ episode.get_absolute_download_url }}" class="pull-right download">{% trans 'Descargar' %}</a></p>
+        <p>{% if show.itunes %}<a href="{{ show.itunes }}">{% endif %}<img src="{% static 'podcast/img/itunes-badge.min.svg' %}" alt="{% trans 'Get it on iTunes' %}">{% if show.itunes %}</a>{% endif %}</p>
 
-{% if episode.enclosure %}
-{% with enclosure=episode.enclosure %}
+        {% endwith %}
+        {% endif %}
+      </div>
+      <div class="col-md-6 podcast-poster">
+        {% if episode.enclosure %}
+        {% with enclosure=episode.enclosure %}
 
-    {# Audio #}
-    {% if enclosure.type == 'audio/mpeg' or enclosure.type == 'audio/x-m4a' %}
-    <audio src="{{ enclosure.file.url }}" controls>
-        <p><a href="{{ enclosure.file.url }}">{% trans 'Download the audio' %}</a>.</p>
-    </audio>
-    <p>{{ enclosure.get_duration }}</p>
+        {% if enclosure.poster %}
+        <a href="{{ episode.get_absolute_url }}"><img src="{{ enclosure.poster }}" alt="{{ episode.title }} artwork" class="podcast-artwork"></a>
+        {% else %}
+        <a href="{{ episode.get_absolute_url }}"><img src="{{ episode.show.get_image_url }}" alt="{{ episode.title }} artwork" class="podcast-artwork"></a>
+        {% endif %}
 
-    {# Video #}
-    {% elif enclosure.type == 'video/mp4' or enclosure.type == 'video/x-m4v' or enclosure.type == 'video/quicktime' %}
-    <video poster="{{ enclosure.get_poster_url }}" controls>
-        <source src="{{ enclosure.file.url }}" type="{{ enclosure.type }}">
-        <p><a href="{{ enclosure.file.url }}">{% trans 'Download the video' %}</a>.</p>
-    </video>
-    <p>{{ enclosure.get_duration }}</p>    
-    {% endif %}
-
-    <p><a href="{{ episode.get_absolute_download_url }}">{% trans 'Download the' %} {{ enclosure.get_megabytes }} {% trans 'MB' %} {{ enclosure.get_type_display }}</a>.</p>
-
-{% endwith %}
-{% endif %}
-
-<h2>{% trans 'Artwork' %}</h2>
-<p><a href="{{ episode.show.get_image_url }}"><img src="{{ episode.show.get_image_url }}" alt="{{ episode.title }} artwork" width="300"></a></p>
-
-{% if episode.description %}
-<h2>{% trans 'Description' %}</h2>
-<p>{{ episode.description|safe }}</p>
-{% endif %}
-
-<h2>{% trans 'Subscribe' %}</h2>
-
-<p>{% if episode.show.itunes %}<a href="{{ episode.show.itunes }}">{% endif %}<img src="{% static 'podcast/img/itunes-badge.min.svg' %}" alt="{% trans 'Get it on iTunes' %}">{% if episode.show.itunes %}</a>{% endif %}</p>
-<p><a href="{{ episode.show.get_absolute_feed_url }}">{% trans 'RSS' %}</a></p>
+        {% endwith %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
 
 {% if episode.get_previous or episode.get_next %}
 <ul>
-    {% if episode.get_next %}
-    <li><a href="{{ episode.get_next.get_absolute_url }}">&larr; {% trans 'Episode' %} {{ episode.index_next }}: {{ episode.get_next.title }}</a></li>
-    {% endif %}
-    {% if episode.get_previous %}
-    <li><a href="{{ episode.get_previous.get_absolute_url }}">{% trans 'Episode' %} {{ episode.index_previous }}: {{ episode.get_previous.title }} &rarr;</a></li>
-    {% endif %}
+  {% if episode.get_next %}
+  <li><a href="{{ episode.get_next.get_absolute_url }}">&larr; {% trans 'Episodio' %} {{ episode.index_next }}: {{ episode.get_next.title }}</a></li>
+  {% endif %}
+  {% if episode.get_previous %}
+  <li><a href="{{ episode.get_previous.get_absolute_url }}">{% trans 'Episodio' %} {{ episode.index_previous }}: {{ episode.get_previous.title }} &rarr;</a></li>
+  {% endif %}
 </ul>
 {% endif %}
 
+<!--TODO: add sidebar and comments by disqus-->
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <div id="disqus_thread"></div>
+    </div>
+
+    <div class="col-md-4">
+      {% include "_modules/sidebar.html" %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{{ block.super }}
+<script>
+var disqus_config = function () {
+  this.page.url = "https://cosasdetios.com/{{ episode.get_absolute_url }}";
+  this.page.identifier = "{{ episode.index }}";
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//cosasdetios.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+</script>
 {% endblock %}

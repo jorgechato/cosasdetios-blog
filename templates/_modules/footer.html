@@ -1,0 +1,29 @@
+{% load i18n staticfiles %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <a href="feed"><h5>RSS</h5></a>
+      <a href="https://www.instagram.com/orggue/"><h5>Instagram</h5></a>
+      <a href="https://twitter.com/orggue"><h5>Twitter</h5></a>
+        <p>{% if show.itunes %}<a href="{{ show.itunes }}">{% endif %}<img src="{% static 'podcast/img/itunes-badge.min.svg' %}" alt="{% trans 'Get it on iTunes' %}">{% if show.itunes %}</a>{% endif %}</p>
+
+    </div>
+    <div class="col-md-4">
+      <h5>HISTORIAS</h5>
+      {% for object in posts %}
+      <a href="{{ object.get_absolute_url }}">
+        <h6>{{ object.title }}</h6>
+      </a>
+      {% endfor %}
+    </div>
+    <div class="col-md-4">
+      <h5>PODCAST</h5>
+      {% for object in podcast %}
+      <a href="{{ object.get_absolute_url }}">
+        <h6>{{ object.title | upper }}</h6>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>

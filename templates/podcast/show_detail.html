@@ -18,69 +18,71 @@
 
 {% if episode_list %}
 
-<div class="row">
-  {% for episode in episode_list %}
-  {% if forloop.first %}
-  <div class="first-podcast">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <span class="episode-number">
-            {% trans 'EPISODIO'%} {{ episode.index }}
-          </span>
-          <span>
-            <time datetime="{{ episode.pub_date|date:'c' }}" title="{{ episode.pub_date|date:'c' }}">{{ episode.pub_date|date:'j F Y' }}</time>
-          </span>
-          <h1><a href="{{ episode.get_absolute_url }}">{{ episode.title | upper }}</a></h1>
-          {% if episode.description %}
-          <p>{{ episode.description|safe }}</p>
-          {% endif %}
-          {% if episode.enclosure %}
-          {% with enclosure=episode.enclosure %}
+{% with episode_list|first as episode %}
+<section class="first-podcast">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-6">
+        <span class="episode-number">
+          {% trans 'EPISODIO'%} {{ episode.index }}
+        </span>
+        <span>
+          <time datetime="{{ episode.pub_date|date:'c' }}" title="{{ episode.pub_date|date:'c' }}">{{ episode.pub_date|date:'j F Y' }}</time>
+        </span>
+        <h1><a href="{{ episode.get_absolute_url }}">{{ episode.title | upper }}</a></h1>
+        {% if episode.description %}
+        <p>{{ episode.description|safe }}</p>
+        {% endif %}
+        {% if episode.enclosure %}
+        {% with enclosure=episode.enclosure %}
 
-          {# Audio #}
-          {% if enclosure.type == 'audio/mpeg' or enclosure.type == 'audio/x-m4a' %}
-          <audio src="{{ enclosure.file.url }}" controls>
-            <p><a href="{{ enclosure.file.url }}">{% trans 'Descarga' %}</a></p>
-          </audio>
+        {# Audio #}
+        {% if enclosure.type == 'audio/mpeg' or enclosure.type == 'audio/x-m4a' %}
+        <audio src="{{ enclosure.file.url }}" controls>
+          <p><a href="{{ enclosure.file.url }}">{{ episode.title }}</a></p>
+        </audio>
 
-          {# Video #}
-          {% elif enclosure.type == 'video/mp4' or enclosure.type == 'video/x-m4v' or enclosure.type == 'video/quicktime' %}
-          <video poster="{{ enclosure.get_poster_url }}" controls>
-            <source src="{{ enclosure.file.url }}" type="{{ enclosure.type }}">
-              <p><a href="{{ enclosure.file.url }}">{% trans 'Descarga' %}</a>.</p>
-          </video>
-          {% endif %}
+        {# Video #}
+        {% elif enclosure.type == 'video/mp4' or enclosure.type == 'video/x-m4v' or enclosure.type == 'video/quicktime' %}
+        <video poster="{{ enclosure.get_poster_url }}" controls>
+          <source src="{{ enclosure.file.url }}" type="{{ enclosure.type }}">
+            <p><a href="{{ enclosure.file.url }}">{{ episode.title }}</a>.</p>
+        </video>
+        {% endif %}
 
-          <p><a href="{{ episode.get_absolute_download_url }}" class="pull-right">{% trans 'Descargar' %}</a></p>
-          <p>{% if show.itunes %}<a href="{{ show.itunes }}">{% endif %}<img src="{% static 'podcast/img/itunes-badge.min.svg' %}" alt="{% trans 'Get it on iTunes' %}">{% if show.itunes %}</a>{% endif %}</p>
+        <p><a href="{{ episode.get_absolute_download_url }}" class="pull-right download">{% trans 'Descargar' %}</a></p>
+        <p>{% if show.itunes %}<a href="{{ show.itunes }}">{% endif %}<img src="{% static 'podcast/img/itunes-badge.min.svg' %}" alt="{% trans 'Get it on iTunes' %}">{% if show.itunes %}</a>{% endif %}</p>
 
-          {% endwith %}
-          {% endif %}
-        </div>
-        <div class="col-md-6 podcast-poster">
-          {% if episode.enclosure %}
-          {% with enclosure=episode.enclosure %}
+        {% endwith %}
+        {% endif %}
+      </div>
+      <div class="col-sm-12 col-md-6 podcast-poster">
+        {% if episode.enclosure %}
+        {% with enclosure=episode.enclosure %}
 
-          {% if enclosure.poster %}
-          <a href="{{ episode.get_absolute_url }}"><img src="{{ enclosure.poster }}" alt="{{ episode.title }} artwork" class="podcast-artwork"></a>
-          {% else %}
-          <a href="{{ episode.get_absolute_url }}"><img src="{{ show.get_image_url }}" alt="{{ episode.title }} artwork" class="podcast-artwork"></a>
-          {% endif %}
+        {% if enclosure.poster %}
+        <a href="{{ episode.get_absolute_url }}"><img src="{{ enclosure.poster }}" alt="{{ episode.title }} artwork" class="podcast-artwork"></a>
+        {% else %}
+        <a href="{{ episode.get_absolute_url }}"><img src="{{ show.get_image_url }}" alt="{{ episode.title }} artwork" class="podcast-artwork"></a>
+        {% endif %}
 
-          {% endwith %}
-          {% endif %}
-        </div>
+        {% endwith %}
+        {% endif %}
       </div>
     </div>
   </div>
+</section>
+{% endwith %}
 
-  {% else %}
+<div class="container">
+  <div class="row">
+    {% for episode in episode_list %}
+    {% if forloop.first %}
 
-  <div class="container">
-    <!--TODO-->
+    {% else %}
+
     <div class="col-sm-6 col-md-3">
-      <div class="thumbnail">
+      <div class="thumbnail overview-podcast">
         {% if episode.enclosure %}
         {% with enclosure=episode.enclosure %}
 
@@ -91,20 +93,21 @@
         {% endif %}
 
         {% endwith %}
+        {% else %}
+        <a href="{{ episode.get_absolute_url }}"><img src="{{ show.get_image_url }}" alt="{{ episode.title }} artwork"></a>
         {% endif %}
         <div class="caption">
           <h3><a href="{{ episode.get_absolute_url }}">{{ episode.title | upper }}</a></h3>
-          {% if episode.description %}
-          <p>{{ episode.description|safe }}</p>
-          {% endif %}
         </div>
       </div>
     </div>
-  </div>
 
-  {% endif %}
-  {% endfor %}
+    {% endif %}
+    {% endfor %}
+  </div>
 </div>
+
+{% include 'podcast/pagination.html' %}
 
 <div class="container">
   {% blocktrans count episode_count=page_obj.paginator.count %}
@@ -119,12 +122,5 @@
 
 </div>
 
-{% include 'podcast/pagination.html' %}
-
 {% endif %}
-
-
-
-<!--<h2>{% trans 'Subscribe' %}</h2>-->
-
 {% endblock %}

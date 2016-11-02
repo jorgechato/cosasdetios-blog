@@ -3,6 +3,7 @@ from datetime import date
 from posts.models import Category
 from posts.models import SideBar
 from posts.models import Post
+from podcast.models import Episode
 
 
 def nav(request):
@@ -20,14 +21,23 @@ def nav(request):
 
 def sidebar(request):
     list_items = SideBar.objects.filter().order_by('order')
-    posts = Post.objects.filter(public=True, published_at__lte=date.today()).order_by('?')[:5]
+    posts = Post.objects.filter(public=True, published_at__lte=date.today()).order_by('?')[:3]
+    podcast = Episode.objects.filter(pub_date__lte=date.today()).order_by('?')[:5]
     items = {
             'items': list_items,
             'posts': posts,
+            'podcast': podcast,
             }
 
     return items
 
 
 def footer(request):
-    return {}
+    podcast = Episode.objects.filter(pub_date__lte=date.today()).order_by('?')[:5]
+    posts = Post.objects.filter(public=True, published_at__lte=date.today()).order_by('?')[:5]
+    items = {
+            'posts': posts,
+            'podcast': podcast,
+            }
+
+    return items
