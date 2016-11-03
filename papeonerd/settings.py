@@ -39,7 +39,6 @@ INSTALLED_APPS = [
 
         'storages',
         'podcast',
-        'pagination',
         'robots',
         'dynamic_preferences',
         'gunicorn',

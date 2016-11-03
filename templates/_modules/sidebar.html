@@ -1,11 +1,56 @@
-{% for object in items %}
-<h5>item</h5>
-{% endfor %}
+{% load i18n staticfiles %}
 
-{% for object in podcast %}
-<h5>{{ object.title }}</h5>
-{% endfor %}
+<div class="sidebar">
+  <p class="title">El show COSAS DE TÍOS</p>
+  {% for object in podcast %}
+  <div class="row sidebar-post">
+    <div class="col-md-2">
+      <a href="{{ object.get_absolute_url }}">
+        {% if object.enclosure %}
+        {% with enclosure=object.enclosure %}
 
-{% for object in posts %}
-<h5>post</h5>
-{% endfor %}
+        {% if enclosure.poster %}
+        <a href="{{ object.get_absolute_url }}"><img src="{{ enclosure.poster }}" alt="{{ object.title }} artwork" class="sidebar-img"></a>
+        {% else %}
+        <a href="{{ object.get_absolute_url }}"><img src="{{ object.show.get_image_url }}" alt="{{ object.title }} artwork" class="sidebar-img"></a>
+        {% endif %}
+
+        {% endwith %}
+        {% endif %}
+      </a>
+    </div>
+    <div class="col-md-10">
+      <a href="{{ object.get_absolute_url }}">
+        <p>{{ object.title | upper }}</p>
+      </a>
+    </div>
+  </div>
+  {% endfor %}
+
+  {% for object in items %}
+  {% if object.title %}
+  <p class="title">{{ object.title }}</p>
+  {% endif %}
+  <p>{{ object.content | safe }}</>
+  {% endfor %}
+
+  <p class="title">Historias increíbles</p>
+  {% for object in posts %}
+  <div class="row sidebar-post">
+    <div class="col-md-10">
+      <p>
+      <a href="{{ object.get_absolute_url }}">
+        {{ object.title }}
+      </a>
+      </p>
+    </div>
+    <div class="col-md-2">
+      <a href="{{ object.get_absolute_url }}">
+        {% if object.thumbnail %}
+        <img src="{{ object.thumbnail.url }}" class="sidebar-img">
+        {% endif %}
+      </a>
+    </div>
+  </div>
+  {% endfor %}
+</div>

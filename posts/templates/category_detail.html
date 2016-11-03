@@ -1,5 +1,6 @@
 {% extends "_layouts/base.html"  %}
 
+
 {% block title %}{{ category.title | title }} - {{ block.super }}{% endblock title %}
 
 {% block meta %}
@@ -74,5 +75,19 @@
       {% include "_modules/sidebar.html" %}
     </div>
   </div>
+  <!--pagination-->
+
+
+
+  {% if posts.has_other_pages %}
+  <ul>
+    {% if posts.has_previous %}
+    <li><a href="{{ request.path }}?page={{ posts.previous_page_number }}">&larr; Anterior</a></li>
+    {% endif %}
+    {% if posts.has_next %}
+    <li><a href="{{ request.path }}?page={{ posts.next_page_number }}">Más historias  &rarr;</a></li>
+    {% endif %}
+  </ul>
+  {% endif %}
 </div>
 {% endblock content %}
