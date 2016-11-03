@@ -38,16 +38,12 @@
 
         {# Audio #}
         {% if enclosure.type == 'audio/mpeg' or enclosure.type == 'audio/x-m4a' %}
-        <audio src="{{ enclosure.file.url }}" controls>
-          <p><a href="{{ enclosure.file.url }}">{{ episode.title }}</a></p>
-        </audio>
-
-        {# Video #}
-        {% elif enclosure.type == 'video/mp4' or enclosure.type == 'video/x-m4v' or enclosure.type == 'video/quicktime' %}
-        <video poster="{{ enclosure.get_poster_url }}" controls>
-          <source src="{{ enclosure.file.url }}" type="{{ enclosure.type }}">
-            <p><a href="{{ enclosure.file.url }}">{{ episode.title }}</a>.</p>
-        </video>
+        <div id="wrapper">
+          <div class="title-player">{% trans 'EPISODIO'%} {{ episode.index }} - {{ episode.title | upper }}</div>
+          <audio controls>
+            <source src="{{ enclosure.file.url }}">
+          </audio>
+        </div>
         {% endif %}
 
         <p><a href="{{ episode.get_absolute_download_url }}" class="pull-right download">{% trans 'Descargar' %}</a></p>
@@ -123,4 +119,19 @@
 </div>
 
 {% endif %}
+{% endblock %}
+
+{% block footer %}
+{{ block.super }}
+<script src="{% static '/script/jquery-3.1.1.min.js' %}"></script>
+<script src="{% static '/script/audioplayer.min.js' %}"></script>
+<script>
+$(function(){
+  $('audio').audioPlayer({
+    classPrefix: 'audioplayer',
+    strPlay: 'Play',
+    strPause: 'Pause',
+  });
+});
+</script>
 {% endblock %}

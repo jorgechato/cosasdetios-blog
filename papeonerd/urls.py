@@ -7,7 +7,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls import handler400, handler403, handler404, handler500
 
 urlpatterns = [
-        url(r'^papeoadmin/', admin.site.urls),
+        url(r'^adminpod/', admin.site.urls),
         url(r'^', include('podcast.urls')),
         url(r'^historias/', include('posts.urls')),
         ]
