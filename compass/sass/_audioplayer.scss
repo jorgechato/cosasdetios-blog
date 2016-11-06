@@ -37,7 +37,7 @@
   z-index: 2;
   top: 0;
   left: 0;
-  //border-radius: 50%;
+  border-radius: 50%;
 }
 .audioplayer:not(.audioplayer-mini) .audioplayer-playpause
 {
@@ -124,8 +124,8 @@
 }
 .audioplayer-bar
 {
-  height: 0.875em; /* 14 */
-  background-color: rgba(0,0,0,.5);
+  height: 11px; /* 14 */
+  background-color: rgba(0,0,0,.3);
   cursor: pointer;
   z-index: 1;
   top: 50%;
@@ -154,4 +154,11 @@
 {
   background: black;
   z-index: 2;
+}
+.audioplayer-volume-button{
+  width: 0;
+  height: 0;
+  a{
+    color: transparent;
+  }
 }
