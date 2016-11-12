@@ -3,7 +3,6 @@ from django.shortcuts import get_object_or_404
 from datetime import date
 from django.views.generic import ListView
 from django.views.generic import DetailView
-from django.views.generic import TemplateView
 from django.core.paginator import PageNotAnInteger
 from django.core.paginator import EmptyPage
 from django.core.paginator import Paginator

@@ -4,12 +4,27 @@ from django.conf.urls import include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib.sitemaps.views import sitemap
 from django.conf.urls import handler400, handler403, handler404, handler500
+
+
+from .sitemap import PostSitemap
+from .sitemap import CategorySitemap
+from .sitemap import PodcastSitemap
+
+sitemaps = {
+        'podcast': PodcastSitemap,
+        'post': PostSitemap,
+        'categoria': CategorySitemap,
+        }
 
 urlpatterns = [
         url(r'^adminpod/', admin.site.urls),
         url(r'^', include('podcast.urls')),
         url(r'^historias/', include('posts.urls')),
+        url(r'^robots\.txt', include('robots.urls')),
+        url(r'^sitemap-(?P<section>.+)\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+        url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.index')
         ]
 
 # urlpatterns += staticfiles_urlpatterns()

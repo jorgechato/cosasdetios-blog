@@ -12,6 +12,7 @@ class Category(models.Model):
     slug = models.SlugField(max_length=140, blank=True, editable=False)
     keywords = models.TextField(blank=True, null=True)
     description = models.CharField(max_length=240, blank=True, null=True)
+    published_at = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
         return self.slug
