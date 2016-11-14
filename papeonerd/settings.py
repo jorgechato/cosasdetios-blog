@@ -15,10 +15,10 @@ DEBUG = True
 ALLOWED_HOSTS = [
         'localhost',
         '0.0.0.0',
-        'https://papeonerd.com',
-        'http://papeonerd.com',
-        'https://www.papeonerd.com',
-        'http://www.papeonerd.com',
+        'https://cosasdetios.com',
+        'http://cosasdetios.com',
+        'https://www.cosasdetios.com',
+        'http://www.cosasdetios.com',
         ]
 
 SITE_ID = 2

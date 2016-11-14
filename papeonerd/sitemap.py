@@ -9,7 +9,7 @@ from podcast.models import Episode
 
 class PodcastSitemap(Sitemap):
     changefreq = "weekly"
-    priority = 0.5
+    priority = 0.8
 
     def items(self):
         return Episode.objects.filter(pub_date__lte=date.today())
