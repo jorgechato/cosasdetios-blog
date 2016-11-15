@@ -3,12 +3,16 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      <a href="feed"><h5>RSS</h5></a>
+      <p>
+      <a href="feed">RSS</a>
+      </p>
         <p>{% if show.itunes %}<a href="{{ show.itunes }}">{% endif %}<img src="{% static 'podcast/img/itunes-badge.min.svg' %}" alt="{% trans 'Get it on iTunes' %}">{% if show.itunes %}</a>{% endif %}</p>
 
     </div>
     <div class="col-md-4">
-      <h5>HISTORIAS</h5>
+      <p>
+      HISTORIAS
+      </p>
       {% for object in posts %}
       <a href="{{ object.get_absolute_url }}">
         <h6>{{ object.title }}</h6>
@@ -16,7 +20,9 @@
       {% endfor %}
     </div>
     <div class="col-md-4">
-      <h5>PODCAST</h5>
+      <p>
+      PODCAST
+      </p>
       {% for object in podcast %}
       <a href="{{ object.get_absolute_url }}">
         <h6>{{ object.title | upper }}</h6>
