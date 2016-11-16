@@ -1,5 +1,5 @@
 from django.contrib.sitemaps import Sitemap
-from datetime import date
+from django.utils import timezone
 
 
 from posts.models import Post
@@ -12,7 +12,7 @@ class PodcastSitemap(Sitemap):
     priority = 0.8
 
     def items(self):
-        return Episode.objects.filter(pub_date__lte=date.today())
+        return Episode.objects.filter(pub_date__lte=timezone.today())
 
     def lastmod(self, obj):
         return obj.pub_date
@@ -34,7 +34,7 @@ class PostSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return Post.objects.filter(public=True, published_at__lte=date.today())
+        return Post.objects.filter(public=True, published_at__lte=timezone.today())
 
     def lastmod(self, obj):
         return obj.published_at

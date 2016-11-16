@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from views import PostListView
+# from views import PostListView
 from views import PostDetailView
 from views import category_detail
 

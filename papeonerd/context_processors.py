@@ -1,4 +1,4 @@
-from datetime import date
+from django.utils import timezone
 
 from posts.models import Category
 from posts.models import SideBar
@@ -21,8 +21,8 @@ def nav(request):
 
 def sidebar(request):
     list_items = SideBar.objects.filter().order_by('order')
-    posts = Post.objects.filter(public=True, published_at__lte=date.today()).order_by('?')[:5]
-    podcast = Episode.objects.filter(pub_date__lte=date.today()).order_by('?')[:5]
+    posts = Post.objects.filter(public=True, published_at__lte=timezone.now()).order_by('?')[:5]
+    podcast = Episode.objects.filter(pub_date__lte=timezone.now()).order_by('?')[:5]
     items = {
             'items': list_items,
             'posts': posts,
@@ -33,8 +33,8 @@ def sidebar(request):
 
 
 def footer(request):
-    podcast = Episode.objects.filter(pub_date__lte=date.today()).order_by('?')[:5]
-    posts = Post.objects.filter(public=True, published_at__lte=date.today()).order_by('?')[:5]
+    podcast = Episode.objects.filter(pub_date__lte=timezone.now()).order_by('?')[:5]
+    posts = Post.objects.filter(public=True, published_at__lte=timezone.now()).order_by('?')[:5]
     items = {
             'posts': posts,
             'podcast': podcast,
