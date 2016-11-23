@@ -34,7 +34,7 @@ urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-handler400 = 'papeonerd.views.bad_request'
-handler403 = 'papeonerd.views.permission_denied'
-handler404 = 'papeonerd.views.page_not_found'
-handler500 = 'papeonerd.views.server_error'
+handler400 = 'cosasdetios.views.bad_request'
+handler403 = 'cosasdetios.views.permission_denied'
+handler404 = 'cosasdetios.views.page_not_found'
+handler500 = 'cosasdetios.views.server_error'

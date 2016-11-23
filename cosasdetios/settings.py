@@ -62,7 +62,7 @@ MIDDLEWARE = [
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         ]
 
-ROOT_URLCONF = 'papeonerd.urls'
+ROOT_URLCONF = 'cosasdetios.urls'
 
 TEMPLATES = [
         {
@@ -78,18 +78,18 @@ TEMPLATES = [
                     'django.contrib.auth.context_processors.auth',
                     'django.contrib.messages.context_processors.messages',
                     'dynamic_preferences.processors.global_preferences',
-                    'papeonerd.context_processors.nav',
-                    'papeonerd.context_processors.sidebar',
-                    'papeonerd.context_processors.footer',
+                    'cosasdetios.context_processors.nav',
+                    'cosasdetios.context_processors.sidebar',
+                    'cosasdetios.context_processors.footer',
                     ],
                 'builtins': [
-                    'papeonerd.templatetags.cowsay_tags',
+                    'cosasdetios.templatetags.cowsay_tags',
                     ]
                 },
             },
         ]
 
-WSGI_APPLICATION = 'papeonerd.wsgi.application'
+WSGI_APPLICATION = 'cosasdetios.wsgi.application'
 
 DYNAMIC_PREFERENCES = {
         'MANAGER_ATTRIBUTE': 'preferences',
