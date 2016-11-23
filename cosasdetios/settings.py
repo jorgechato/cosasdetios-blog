@@ -10,7 +10,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_1&tarcy#$-%^8v%m4u7f@d%k2%oqk4ze9h+vn0_k#amw*rz%x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
         'localhost',
@@ -21,7 +21,7 @@ ALLOWED_HOSTS = [
         'http://www.cosasdetios.com',
         ]
 
-SITE_ID = 2
+SITE_ID = 1
 
 # Application definition
 
