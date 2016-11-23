@@ -1,3 +1,4 @@
+from local_settings import USE_S3
 from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls import include
@@ -21,7 +22,7 @@ sitemaps = {
 
 urlpatterns = [
         url(r'^cookies/', TemplateView.as_view(template_name='cookies-law.html')),
-        url(r'^adminpod/', admin.site.urls),
+        url(r'^admin/', admin.site.urls),
         url(r'^', include('podcast.urls')),
         url(r'^historias/', include('posts.urls')),
         url(r'^robots\.txt', include('robots.urls')),
@@ -29,9 +30,10 @@ urlpatterns = [
         url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.index')
         ]
 
-# urlpatterns += staticfiles_urlpatterns()
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if not USE_S3:
+    # urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 handler400 = 'cosasdetios.views.bad_request'

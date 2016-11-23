@@ -52,7 +52,7 @@ class Post(models.Model):
     content = RichTextField()
     published_at = models.DateTimeField()
     public = models.BooleanField(default=True)
-    thumbnail = models.ImageField(upload_to='papeonerd/images', blank=True)
+    thumbnail = models.ImageField(upload_to='historias/images', blank=True)
 
     def __str__(self):
         return self.title

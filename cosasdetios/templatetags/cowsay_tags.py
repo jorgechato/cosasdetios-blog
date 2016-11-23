@@ -1,10 +1,15 @@
 from django import template
 from subprocess import PIPE, Popen
-from fortune.models import Fortune
+from fortune.models import Fortune, Pack
 from django.utils.safestring import mark_safe
+from fortune import utils
 
 
 register = template.Library()
+
+fortunes_path = utils.get_fortunes_path()
+humorists_fortunes_path = fortunes_path.joinpath("humorists")
+Pack.load(str(humorists_fortunes_path))
 
 
 @register.simple_tag

@@ -101,16 +101,6 @@ DYNAMIC_PREFERENCES = {
         'VALIDATE_NAMES': True,
         }
 
-# Database
-# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-            }
-        }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -198,14 +188,9 @@ CKEDITOR_UPLOAD_SLUGIFY_FILENAME = True
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
-STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'compass/out'),
-        )
 
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # podcast
 PODCAST_SINGULAR = True

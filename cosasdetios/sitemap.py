@@ -12,7 +12,7 @@ class PodcastSitemap(Sitemap):
     priority = 0.8
 
     def items(self):
-        return Episode.objects.filter(pub_date__lte=timezone.today())
+        return Episode.objects.filter(pub_date__lte=timezone.now())
 
     def lastmod(self, obj):
         return obj.pub_date
@@ -34,7 +34,7 @@ class PostSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return Post.objects.filter(public=True, published_at__lte=timezone.today())
+        return Post.objects.filter(public=True, published_at__lte=timezone.now())
 
     def lastmod(self, obj):
         return obj.published_at
