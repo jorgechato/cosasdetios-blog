@@ -22,7 +22,7 @@ def nav(request):
 def sidebar(request):
     list_items = SideBar.objects.filter().order_by('order')
     posts = Post.objects.filter(public=True, published_at__lte=timezone.now()).order_by('?')[:5]
-    podcast = Episode.objects.filter(pub_date__lte=timezone.now()).order_by('?')[:5]
+    podcast = Episode.objects.filter(pub_date__lte=timezone.now()).order_by('?')[:3]
     items = {
             'items': list_items,
             'posts': posts,

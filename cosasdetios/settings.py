@@ -10,11 +10,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_1&tarcy#$-%^8v%m4u7f@d%k2%oqk4ze9h+vn0_k#amw*rz%x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
         'localhost',
         '0.0.0.0',
+        '192.168.1.20',
         'https://cosasdetios.com',
         'http://cosasdetios.com',
         'https://www.cosasdetios.com',
@@ -45,7 +46,6 @@ INSTALLED_APPS = [
         'gunicorn',
         'fortune',
         'ckeditor',
-        'ckeditor_uploader',
         'import_export',
         'posts',
         ]
@@ -152,7 +152,7 @@ CKEDITOR_CONFIGS = {
                 {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste',
                     'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
                 {'name': 'links', 'items': ['Link', 'Unlink']},
-                {'name': 'insert', 'items': ['Image', 'Table',
+                {'name': 'insert', 'items': ['Image','Upload', 'Table',
                     'HorizontalRule', 'Smiley', 'SpecialChar']}, '/',
                 {'name': 'basicstyles', 'items': [
                     'Bold', 'Italic', 'Underline', 'Strike',
@@ -170,6 +170,7 @@ CKEDITOR_CONFIGS = {
             'tabSpaces': 4,
             'extraPlugins': ','.join(
                 [
+                    'image2',
                     'div',
                     'autolink',
                     'autoembed',
@@ -186,11 +187,6 @@ CKEDITOR_CONFIGS = {
         }
 CKEDITOR_UPLOAD_SLUGIFY_FILENAME = True
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
-CKEDITOR_UPLOAD_PATH = "uploads/"
-
-
-MEDIA_URL = '/media/'
-STATIC_URL = '/static/'
 
 # podcast
 PODCAST_SINGULAR = True
