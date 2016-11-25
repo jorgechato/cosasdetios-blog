@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static from staticfiles %}
 <html lang="es">
   <head>
     <meta charset="UTF-8">
@@ -14,7 +14,7 @@
     <link rel="icon" href="{%  static 'img/favicon.png' %}">
     <title>{% block title %}{{ global_preferences.general_title | upper }}{% endblock %}</title>
     {% block head%}
-    <link rel="stylesheet" type="text/css" href="{% static '/style/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/base.css' %}">
     {% endblock %}
   </head>
   <body>

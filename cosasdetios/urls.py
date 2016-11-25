@@ -24,7 +24,6 @@ urlpatterns = [
         url(r'^cookies/', TemplateView.as_view(template_name='cookies-law.html')),
         url(r'^admin/', admin.site.urls),
         url(r'^', include('podcast.urls')),
-        url(r'^ckeditor/', include('ckeditor_uploader.urls')),
         url(r'^historias/', include('posts.urls')),
         url(r'^robots\.txt', include('robots.urls')),
         url(r'^sitemap-(?P<section>.+)\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
@@ -32,7 +31,6 @@ urlpatterns = [
         ]
 
 if not USE_S3:
-    # urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

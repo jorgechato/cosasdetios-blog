@@ -10,7 +10,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_1&tarcy#$-%^8v%m4u7f@d%k2%oqk4ze9h+vn0_k#amw*rz%x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
+THUMBNAIL_DEBUG = DEBUG
 
 ALLOWED_HOSTS = [
         'localhost',
@@ -36,9 +37,7 @@ INSTALLED_APPS = [
         'django.contrib.sites',
         'django.contrib.sitemaps',
 
-        'django_extensions',
-        'autofixture',
-
+        'sorl.thumbnail',
         'robots',
         'storages',
         'podcast',
@@ -49,6 +48,13 @@ INSTALLED_APPS = [
         'import_export',
         'posts',
         ]
+
+if DEBUG:
+    INSTALLED_APPS += [
+            'django_extensions',
+            'autofixture',
+            ]
+    pass
 
 MIDDLEWARE = [
         'django.middleware.gzip.GZipMiddleware',
@@ -187,6 +193,8 @@ CKEDITOR_CONFIGS = {
         }
 CKEDITOR_UPLOAD_SLUGIFY_FILENAME = True
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
+
+THUMBNAIL_FORCE_OVERWRITE = True
 
 # podcast
 PODCAST_SINGULAR = True

@@ -26,10 +26,9 @@ class PostAdmin(ImportExportActionModelAdmin):
     ordering = ('-published_at',)
 
     def cover_image(self, obj):
-        tag = '<img src="https://placeholdit.imgix.net/~text?txtsize=23&bg=E8117f&txtclr=ffffff&txt=%s&w=200&h=100">' % obj.title
+        tag = '<img src="https://placeholdit.imgix.net/~text?txtsize=23&bg=000000&txtclr=D3367E&txt=%s&w=200&h=100">' % obj.title
         if obj.thumbnail:
-            url = obj.thumbnail.url
-            tag = '<img src="%s" style="width:200px;">' % url
+            tag = '<img src="https://placeholdit.imgix.net/~text?txtsize=23&bg=D3367E&txtclr=000000&txt=%s&w=200&h=100">' % obj.title
         return tag
 
     cover_image.allow_tags = True
