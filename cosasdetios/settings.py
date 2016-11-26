@@ -10,12 +10,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_1&tarcy#$-%^8v%m4u7f@d%k2%oqk4ze9h+vn0_k#amw*rz%x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 THUMBNAIL_DEBUG = DEBUG
 
 ALLOWED_HOSTS = [
         'localhost',
         '0.0.0.0',
+        '127.0.0.1',
         '192.168.1.20',
         'https://cosasdetios.com',
         'http://cosasdetios.com',

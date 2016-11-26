@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from dynamic_preferences.types import Section
 from dynamic_preferences.types import StringPreference
 from dynamic_preferences.types import BooleanPreference
@@ -11,7 +13,7 @@ general = Section('general')
 class SiteTitle(StringPreference):
     section = general
     name = 'title'
-    default = 'EL PAPEO NERD'
+    default = 'COSAS DE TÍOS'
 
 
 @global_preferences_registry.register
