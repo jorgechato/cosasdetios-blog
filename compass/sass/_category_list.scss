@@ -7,8 +7,13 @@
     }
 
     .post{
+      img{
+        max-width: 100%;
+        height: inherit;
+      }
+
       .image{
-        background: #5baff2;
+        background: $main-color;
         @include background-size(cover);
         background-repeat: no-repeat;
         background-position: center;
