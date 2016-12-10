@@ -21,7 +21,9 @@
         <span>
           <time datetime="{{ episode.pub_date|date:'c' }}" title="{{ episode.pub_date|date:'c' }}">{{ episode.pub_date|date:'j F Y' }}</time>
         </span>
-        <h1>{{ episode.title | upper }}</h1>
+        <h1>
+          {{ episode.title | upper }}
+        </h1>
         {% if episode.description %}
         <p>{{ episode.description|safe }}</p>
         {% endif %}

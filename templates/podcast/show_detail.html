@@ -30,7 +30,11 @@
         <span>
           <time datetime="{{ episode.pub_date|date:'c' }}" title="{{ episode.pub_date|date:'c' }}">{{ episode.pub_date|date:'j F Y' }}</time>
         </span>
-        <h1><a href="{{ episode.get_absolute_url }}">{{ episode.title | upper }}</a></h1>
+        <h1>
+          <a href="{{ episode.get_absolute_url }}">
+          {{ episode.title | upper }}
+          </a>
+        </h1>
         {% if episode.description %}
         <p>{{ episode.description|safe }}</p>
         {% endif %}

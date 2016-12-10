@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from slugify import slugify
 from ckeditor.fields import RichTextField
 from django.utils import timezone
+from emoji import Emoji
 
 
 def content_file_name(instance, filename):
@@ -50,6 +51,10 @@ class SideBar(models.Model):
     def __str__(self):
         return self.title
 
+    def save(self, *arg, **kwargs):
+        self.content = Emoji.replace(self.content)
+        super(Post, self).save(*arg, **kwargs)
+
     class Meta:
         unique_together = ('title', 'order')
 
@@ -72,6 +77,8 @@ class Post(models.Model):
 
     def save(self, *arg, **kwargs):
         self.slug = slugify(self.title)
+        self.content = Emoji.replace(self.content)
+        self.title = Emoji.replace(self.title)
         super(Post, self).save(*arg, **kwargs)
 
     def get_absolute_url(self):

@@ -35,6 +35,7 @@ INSTALLED_APPS = [
         'django.contrib.sites',
         'django.contrib.sitemaps',
 
+        'emoji',
         'sorl.thumbnail',
         'robots',
         'storages',
