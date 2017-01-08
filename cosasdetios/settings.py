@@ -14,7 +14,6 @@ ALLOWED_HOSTS = [
         'localhost',
         '0.0.0.0',
         '127.0.0.1',
-        '192.168.1.20',
         'https://cosasdetios.com',
         'http://cosasdetios.com',
         'https://www.cosasdetios.com',
@@ -35,6 +34,7 @@ INSTALLED_APPS = [
         'django.contrib.sites',
         'django.contrib.sitemaps',
 
+        'rest_framework',
         'emoji',
         'sorl.thumbnail',
         'robots',
@@ -93,6 +93,18 @@ TEMPLATES = [
                 },
             },
         ]
+
+REST_FRAMEWORK = {
+        'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.IsAuthenticated'
+            ],
+        'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+        'PAGE_SIZE': 100,
+        }
+
+LOGIN_REDIRECT_URL = 'api:api-root'
+LOGIN_URL = 'rest_framework:login'
+redirect_unauthenticated_users = True
 
 WSGI_APPLICATION = 'cosasdetios.wsgi.application'
 

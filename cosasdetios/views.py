@@ -1,4 +1,23 @@
 from django.shortcuts import render
+from rest_framework import viewsets
+
+from podcast.models import Episode, Enclosure, Show
+from .serializers import EpisodeSerializer, ShowSerializer, EnclosureSerializer
+
+
+class ShowViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Show.objects.all().order_by('-pk')
+    serializer_class = ShowSerializer
+
+
+class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Episode.objects.all().order_by('-pub_date')
+    serializer_class = EpisodeSerializer
+
+
+class EnclosureViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Enclosure.objects.all().order_by('-pk')
+    serializer_class = EnclosureSerializer
 
 
 # HTTP Error 400

@@ -1,0 +1,13 @@
+{% extends "rest_framework/login_base.html" %}
+
+
+{% block title %}
+Console - {{ global_preferences.general_title | upper }}
+{% endblock %}
+
+{% block branding %}
+<h3 style="margin: 0 0 20px;">
+  {{ global_preferences.general_title | title }} - API
+</h3>
+{% endblock %}
+
