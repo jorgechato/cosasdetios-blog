@@ -31,7 +31,7 @@ urlpatterns = [
         url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
         url(r'^api/v1/', include(router.urls, namespace='api')),
         url(r'^', include('podcast.urls'), name="home"),
-        url(r'^historias/', include('posts.urls')),
+        url(r'^historias/', include('posts.urls'), name="articles"),
         url(r'^robots\.txt', include('robots.urls')),
         url(r'^sitemap-(?P<section>.+)\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
         url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.index'),

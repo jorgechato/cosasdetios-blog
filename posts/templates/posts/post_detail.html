@@ -4,35 +4,35 @@
 
 {% block content%}
 <div class="container post-view">
-  {% include "_modules/nav.html" %}
+	{% include "_modules/nav.html" %}
 
-  <div class="row">
-    <div class="col-md-8 posts">
-      <div class="post">
-        <h1>
-          {{ object.title }}
-        </h1>
-        <p>
-        <a href="{{ object.get_absolute_url }}">
-          {% if object.thumbnail %}
-          <div class="image" style="background-image: url({{ object.thumbnail.url }});"></div>
-          {% endif %}
-        </a>
-        </p>
-        <div class="row">
-          <div class="col-md-10 col-md-offset-1">
-            <p>
-            {{ object.content|safe }}
-            </p>
-            <hr>
-          </div>
-        </div>
-      </div>
-    </div>
+	<div class="row">
+		<div class="col-md-8 posts">
+			<div class="post">
+				<h1>
+					{{ object.title }}
+				</h1>
+				<p>
+				<a href="{{ object.get_absolute_url }}">
+					{% if object.thumbnail %}
+					<div class="image" style="background-image: url({{ object.thumbnail.url }});"></div>
+					{% endif %}
+				</a>
+				</p>
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1">
+						<p>
+						{{ object.content|safe }}
+						</p>
+						<hr>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <div class="col-md-4">
-      {% include "_modules/sidebar.html" %}
-    </div>
-  </div>
+		<div class="col-md-4">
+			{% include "_modules/sidebar.html" %}
+		</div>
+	</div>
 </div>
 {% endblock content %}

@@ -1,0 +1,40 @@
+{% extends "_layouts/base.html"  %}
+{% load twitter_tags %}
+{% load emoji_tags %}
+
+
+{% block title %}{{ "Reflexiones" | title }} - {{ block.super }}{% endblock title %}
+
+{% block content%}
+<div class="container">
+	{% include "_modules/nav.html" %}
+	<ul>
+		{% for tweet in tweets %}
+		<a href="//twitter.com/orggue/status/{{ tweet.id_str }}" target="_blank">
+			<li>
+				{{ tweet|expand_tweet_urls|clean_media_urls|urlize_tweet_text|safe }}
+				{% if tweet.media %}
+				{% for object in tweet.media %}
+				<img src="{{ object.media_url }}" alt="">
+				{% endfor %}
+				{% endif %}
+			</li>
+		</a>
+		{% empty %}
+		<h2>NO HAY MÁS REFLEXIONES POR HOY</h2>
+		{% endfor %}
+	</ul>
+	{% with tweets|last as next %}
+	<ul>
+		{% if tweets|length < 1 %}
+		<li><a href="{{ request.path }}?page=0">&larr;  Volver</a></li>
+		{% else %}
+		<li><a href="{{ request.path }}?page={{ next.id }}">Quiero más  &rarr;</a></li>
+		{% endif %}
+	</ul>
+	{% endwith %}
+	{% if tweets|length < 1 %}
+	<div style="height: 40vh;"></div>
+	{% endif %}
+</div>
+{% endblock content %}

@@ -10,11 +10,11 @@ register = template.Library()
 fortunes_path = utils.get_fortunes_path()
 humorists_fortunes_path = fortunes_path.joinpath("humorists")
 Pack.load(str(humorists_fortunes_path))
+cow = Popen(['/usr/games/cowsay', Fortune.fortune()], stdout=PIPE)
 
 
 @register.simple_tag
 def cowsay():
-    cow = Popen(['/usr/games/cowsay', Fortune.fortune()], stdout=PIPE)
     output = cow.stdout.read()
     cow.stdout.close()
 
