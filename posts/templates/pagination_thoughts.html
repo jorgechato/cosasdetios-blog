@@ -1,0 +1,9 @@
+{% with tweets|last as next %}
+<ul class="pager">
+	{% if tweets|length < 1 %}
+	<li class="previous"><a href="{{ request.path }}?page=0"><span aria-hidden="true">&larr;</span> Volver</a></li>
+	{% else %}
+	<li class="previous"><a href="{{ request.path }}?page={{ next.id }}">Quiero más  <span aria-hidden="true">&rarr;</span></a></li>
+	{% endif %}
+</ul>
+{% endwith %}

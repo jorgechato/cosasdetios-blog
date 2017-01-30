@@ -10,7 +10,7 @@
 		<div class="col-md-8 posts">
 			<div class="post">
 				<h1>
-					{{ object.title }}
+					{{ object.title|safe }}
 				</h1>
 				<p>
 				<a href="{{ object.get_absolute_url }}">

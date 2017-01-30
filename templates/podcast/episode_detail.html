@@ -1,6 +1,7 @@
 {% extends "_layouts/base.html" %}
 
 {% load i18n staticfiles %}
+{% load thumbnail %}
 
 
 {% block title %}{{ episode.title | title }} - {{ block.super }}{% endblock title %}
@@ -8,82 +9,23 @@
 
 {% block content %}
 <div class="container">
-  {% include "_modules/nav.html" %}
+	{% include "_modules/nav.html" %}
 </div>
 
-<div class="first-podcast">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <span class="episode-number">
-          {% trans 'EPISODIO'%} {{ episode.index }}
-        </span>
-        <span>
-          <time datetime="{{ episode.pub_date|date:'c' }}" title="{{ episode.pub_date|date:'c' }}">{{ episode.pub_date|date:'j F Y' }}</time>
-        </span>
-        <h1>
-          {{ episode.title | upper }}
-        </h1>
-        {% if episode.description %}
-        <p>{{ episode.description|safe }}</p>
-        {% endif %}
-        {% if episode.enclosure %}
-        {% with enclosure=episode.enclosure %}
-
-        {# Audio #}
-        {% if enclosure.type == 'audio/mpeg' or enclosure.type == 'audio/x-m4a' %}
-        <div id="wrapper">
-          <div class="title-player">{% trans 'EPISODIO'%} {{ episode.index }} - {{ episode.title | upper }}</div>
-          <audio controls>
-            <source src="{{ enclosure.file.url }}">
-          </audio>
-        </div>
-        {% endif %}
-
-        <p><a href="{{ episode.get_absolute_download_url }}" class="pull-right download">{% trans 'Descargar' %}</a></p>
-        <p>{% if show.itunes %}<a href="{{ show.itunes }}">{% endif %}<img src="{% static 'podcast/img/itunes-badge.min.svg' %}" alt="{% trans 'Get it on iTunes' %}">{% if show.itunes %}</a>{% endif %}</p>
-
-        {% endwith %}
-        {% endif %}
-      </div>
-      <div class="col-md-6 podcast-poster">
-        {% if episode.enclosure %}
-        {% with enclosure=episode.enclosure %}
-
-        {% if enclosure.poster %}
-        <a href="{{ episode.get_absolute_url }}"><img src="{{ enclosure.poster }}" alt="{{ episode.title }} artwork" class="podcast-artwork"></a>
-        {% else %}
-        <a href="{{ episode.get_absolute_url }}"><img src="{{ episode.show.get_image_url }}" alt="{{ episode.title }} artwork" class="podcast-artwork"></a>
-        {% endif %}
-
-        {% endwith %}
-        {% endif %}
-      </div>
-    </div>
-  </div>
-</div>
-
-{% if episode.get_previous or episode.get_next %}
-<ul>
-  {% if episode.get_next %}
-  <li><a href="{{ episode.get_next.get_absolute_url }}">&larr; {% trans 'Episodio' %} {{ episode.index_next }}: {{ episode.get_next.title }}</a></li>
-  {% endif %}
-  {% if episode.get_previous %}
-  <li><a href="{{ episode.get_previous.get_absolute_url }}">{% trans 'Episodio' %} {{ episode.index_previous }}: {{ episode.get_previous.title }} &rarr;</a></li>
-  {% endif %}
-</ul>
-{% endif %}
+{% include "podcast/poster.html" %}
 
 <div class="container">
-  <div class="row">
-    <div class="col-md-8">
-      <div id="disqus_thread"></div>
-    </div>
+	<div class="row">
+		<div class="col-md-8">
+			{% include "podcast/pagination_detail.html" %}
 
-    <div class="col-md-4">
-      {% include "_modules/sidebar.html" %}
-    </div>
-  </div>
+			<div id="disqus_thread"></div>
+		</div>
+
+		<div class="col-md-4">
+			{% include "_modules/sidebar.html" %}
+		</div>
+	</div>
 </div>
 {% endblock %}
 
@@ -93,24 +35,24 @@
 <script src="{% static 'script/audioplayer.min.js' %}"></script>
 <script>
 $(function(){
-  $('audio').audioPlayer({
-    classPrefix: 'audioplayer',
-    strPlay: 'Play',
-    strPause: 'Pause',
-  });
+	$('audio').audioPlayer({
+		classPrefix: 'audioplayer',
+		strPlay: 'Play',
+		strPause: 'Pause',
+	});
 });
 </script>
 <script>
 var disqus_config = function () {
-  this.page.url = "http://cosasdetios.com/{{ episode.get_absolute_url }}";
-  this.page.identifier = "{{ episode.pk }}";
+	this.page.url = "http://cosasdetios.com/{{ episode.get_absolute_url }}";
+	this.page.identifier = "{{ episode.pk }}";
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
-  var d = document, s = d.createElement('script');
-  s.src = '//cosasdetios.disqus.com/embed.js';
-  s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
+	var d = document, s = d.createElement('script');
+	s.src = '//cosasdetios.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
 })();
 </script>
 {% endblock %}

@@ -1,0 +1,12 @@
+{% load i18n %}
+
+{% if episode.get_previous or episode.get_next %}
+<ul class="pager">
+  {% if episode.get_previous %}
+	<li class="previous"><a href="{{ episode.get_previous.get_absolute_url }}"><span aria-hidden="true">&larr;</span> {% trans 'Episodio' %} {{ episode.index_previous }}: {{ episode.get_previous.title }}</a></li>
+	{% endif %}
+  {% if episode.get_next %}
+	<li class="next"><a href="{{ episode.get_next.get_absolute_url }}">{% trans 'Episodio' %} {{ episode.index_next }}: {{ episode.get_next.title }} <span aria-hidden="true">&rarr;</span></a></li>
+	{% endif %}
+</ul>
+{% endif %}

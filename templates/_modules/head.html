@@ -4,7 +4,10 @@
 <header>
   <div class="container">
     <a href="/">
-      <img src="{% static 'img/logo.png' %}" class="logo" alt="cosas de tios">
+				{% static 'img/logo.png' as poster%}
+				{% thumbnail poster "450" format="PNG" crop="center" as im %}
+				<img src="{{ im.url }}" class="logo" alt="cosas de tios">
+				{% endthumbnail %}
     </a>
   </div>
 </header>

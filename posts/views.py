@@ -19,7 +19,7 @@ class ThoughtsListView(TemplateView):
 
         # 825652419891695617  @beerwhisper
         # 202708941           @orggue
-        context['tweets'] = api.GetUserTimeline(user_id=202708941,
+        context['tweets'] = api.GetUserTimeline(user_id=825652419891695617,
                                                 include_rts=False,
                                                 count=20,
                                                 max_id=page)

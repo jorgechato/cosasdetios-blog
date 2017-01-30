@@ -35,3 +35,10 @@ class Keywords(LongStringPreference):
     section = general
     name = 'keywords'
     default = ''
+
+
+@global_preferences_registry.register
+class TwitterUser(StringPreference):
+    section = general
+    name = 'twitter'
+    default = '@beerwhisper'

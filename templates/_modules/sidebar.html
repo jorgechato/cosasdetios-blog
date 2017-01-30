@@ -13,11 +13,11 @@
 
           {% if enclosure.poster %}
           {% thumbnail enclosure.poster "100x100" crop="center" as im %}
-          <a href="{{ object.get_absolute_url }}"><img src="{{ img.url }}" alt="{{ object.title }} artwork" class="sidebar-img"></a>
+          <a href="{{ object.get_absolute_url }}"><img src="{{ im.url }}" alt="{{ object.title|safe }} artwork" class="sidebar-img"></a>
           {% endthumbnail %}
           {% else %}
           {% thumbnail object.show.get_image_url "100x100" crop="center" as im %}
-          <a href="{{ object.get_absolute_url }}"><img src="{{ im.url }}" alt="{{ object.title }} artwork" class="sidebar-img"></a>
+          <a href="{{ object.get_absolute_url }}"><img src="{{ im.url }}" alt="{{ object.title|safe }} artwork" class="sidebar-img"></a>
           {% endthumbnail %}
           {% endif %}
 
@@ -25,7 +25,7 @@
           {% endif %}
         </a>
         <a class="sidebar-podcast" href="{{ object.get_absolute_url }}">
-          <p>{{ object.title | title }}</p>
+          <p>{{ object.title | title|safe }}</p>
         </a>
       </div>
     </div>
@@ -34,7 +34,7 @@
 
   {% for object in items %}
   {% if object.title %}
-  <p class="title">{{ object.title }}</p>
+  <p class="title">{{ object.title|safe }}</p>
   {% endif %}
   <p>{{ object.content | safe }}</>
   {% endfor %}
@@ -54,7 +54,7 @@
     <div class="col-md-9 col-xs-9">
       <p>
       <a href="{{ object.get_absolute_url }}">
-        {{ object.title }}
+        {{ object.title|safe }}
       </a>
       </p>
     </div>

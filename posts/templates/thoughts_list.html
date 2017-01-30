@@ -1,6 +1,7 @@
 {% extends "_layouts/base.html"  %}
+{% load static from staticfiles %}
 {% load twitter_tags %}
-{% load emoji_tags %}
+{% load thumbnail %}
 
 
 {% block title %}{{ "Reflexiones" | title }} - {{ block.super }}{% endblock title %}
@@ -8,33 +9,53 @@
 {% block content%}
 <div class="container">
 	{% include "_modules/nav.html" %}
-	<ul>
-		{% for tweet in tweets %}
-		<a href="//twitter.com/orggue/status/{{ tweet.id_str }}" target="_blank">
-			<li>
-				{{ tweet|expand_tweet_urls|clean_media_urls|urlize_tweet_text|safe }}
-				{% if tweet.media %}
-				{% for object in tweet.media %}
-				<img src="{{ object.media_url }}" alt="">
-				{% endfor %}
-				{% endif %}
-			</li>
-		</a>
-		{% empty %}
-		<h2>NO HAY MÁS REFLEXIONES POR HOY</h2>
-		{% endfor %}
-	</ul>
-	{% with tweets|last as next %}
-	<ul>
-		{% if tweets|length < 1 %}
-		<li><a href="{{ request.path }}?page=0">&larr;  Volver</a></li>
-		{% else %}
-		<li><a href="{{ request.path }}?page={{ next.id }}">Quiero más  &rarr;</a></li>
-		{% endif %}
-	</ul>
-	{% endwith %}
-	{% if tweets|length < 1 %}
-	<div style="height: 40vh;"></div>
-	{% endif %}
+	<div class="row">
+		<div class="col-md-8 posts">
+			<div class="panel panel-default thoughts">
+				{% static 'img/pop-culture-collage.jpg' as poster%}
+				{% thumbnail poster "900x100" crop="center" as im %}
+				<div class="panel-heading" style='background-image: url("{{ im.url }}");'>
+					<h1>Reflexiones</h1>
+				</div>
+				{% endthumbnail %}
+				<ul class="list-group">
+					{% for tweet in tweets %}
+					<li class="list-group-item">
+						<div class="panel-body">
+							{{ tweet|expand_tweet_urls|clean_media_urls|urlize_tweet_text|safe }}
+							{% if tweet.media %}
+							<div class="row">
+								{% for object in tweet.media %}
+								<div class="col-xs-6 col-md-3">
+									<a href="{{ object.url }}" class="thumbnail" target="_blank">
+										<img src="{{ object.media_url }}" alt="">
+									</a>
+								</div>
+								{% endfor %}
+							</div>
+							{% endif %}
+						</div>
+					</li>
+					{% empty %}
+					<li class="list-group-item">
+						<div class="panel-body">
+							<h2>NO HAY MÁS REFLEXIONES POR HOY</h2>
+						</div>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+
+			{% include "pagination_thoughts.html" %}
+
+			{% if tweets|length < 1 %}
+			<div style="height: 40vh;"></div>
+			{% endif %}
+		</div>
+
+		<div class="col-md-4">
+			{% include "_modules/sidebar.html" %}
+		</div>
+	</div>
 </div>
 {% endblock content %}

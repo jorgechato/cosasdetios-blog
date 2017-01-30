@@ -1,42 +1,58 @@
 <!DOCTYPE html>
 {% load static from staticfiles %}
-<html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="Jorge Chato"/>
-    {% block meta%}
-    <meta name="Description" content="{{ global_preferences.general_description }}"/>
-    <meta name="Keywords" content="{{ global_preferences.general_keywords }}"/>
-    {% endblock %}
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="theme-color" content="#D3367E"/>
-    <base href="/" target=""/>
-    <link rel="icon" href="{%  static 'img/favicon.png' %}">
-    <title>{% block title %}{{ global_preferences.general_title | upper }}{% endblock %}</title>
-    {% block head%}
-    <link rel="stylesheet" type="text/css" href="{% static 'style/base.css' %}">
-    {% endblock %}
-  </head>
-  <body>
-    {% include "_modules/head.html" %}
-    {% block content%}
-    {% endblock %}
+{% load thumbnail %}
 
-    <footer>
-      {% include "_modules/footer.html" %}
-      {% block footer%}
-      {% endblock %}
-      {% include "_modules/cookies.html" %}
-      <script>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="author" content="Jorge Chato"/>
+		{% block meta%}
+		<meta name="Description" content="{{ global_preferences.general_description }}"/>
+		<meta name="Keywords" content="{{ global_preferences.general_keywords }}"/>
+		{% endblock %}
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+		<meta name="theme-color" content="#D3367E"/>
+		<meta name="twitter:card" content="summary_large_image"/>
+		<meta name="twitter:title" content="{{ global_preferences.general_title | upper }}"/>
+		<meta name="twitter:site" content="{{ global_preferences.general_twitter }}"/>
+		<meta name="twitter:creator" content="{{ global_preferences.general_twitter }}"/>
+		<meta name="twitter:description" content="{{ global_preferences.general_description }}"/>
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="{{ global_preferences.general_title | upper }}"/>
+		<meta property="og:site_name" content="{{ global_preferences.general_title | upper }}"/>
+		<meta property="og:description" content="{{ global_preferences.general_description }}"/>
+		{% static 'img/logo.png' as poster%}
+		{% thumbnail poster "450" format="PNG" crop="center" as im %}
+		<meta property="og:image" content="{{ im.url }}">
+		<meta name="twitter:image" content="{{ im.url }}">
+		{% endthumbnail %}
+		<base href="/" target=""/>
+		<link rel="icon" href="{%  static 'img/favicon.png' %}">
+		<title>{% block title %}{{ global_preferences.general_title | upper }}{% endblock %}</title>
+		{% block head%}
+		<link rel="stylesheet" type="text/css" href="{% static 'style/base.css' %}">
+		{% endblock %}
+	</head>
+	<body>
+		{% include "_modules/head.html" %}
+		{% block content%}
+		{% endblock %}
+
+		<footer>
+			{% include "_modules/footer.html" %}
+			{% block footer%}
+			{% endblock %}
+			{% include "_modules/cookies.html" %}
+			<script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
 ga('create', '{{ global_preferences.general_trackingId }}', 'auto');
 ga('send', 'pageview');
 
-      </script>
-    </footer>
-  </body>
+			</script>
+		</footer>
+	</body>
 </html>

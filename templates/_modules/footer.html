@@ -18,7 +18,7 @@
       </p>
       {% for object in posts %}
       <a href="{{ object.get_absolute_url }}">
-        <h6>{{ object.title }}</h6>
+        <h6>{{ object.title|safe }}</h6>
       </a>
       {% endfor %}
     </div>
@@ -28,7 +28,7 @@
       </p>
       {% for object in podcast %}
       <a href="{{ object.get_absolute_url }}">
-        <h6>{{ object.title | upper }}</h6>
+        <h6>{{ object.title | upper | safe }}</h6>
       </a>
       {% endfor %}
     </div>

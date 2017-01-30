@@ -1,5 +1,6 @@
 {% extends "_layouts/base.html"  %}
 {% load i18n staticfiles podcast_tags %}
+{% load thumbnail %}
 
 
 {% block meta %}
@@ -14,112 +15,70 @@
 
 {% block content %}
 <div class="container">
-  {% include "_modules/nav.html" %}
+	{% include "_modules/nav.html" %}
 </div>
 
 {% if episode_list %}
 
 {% with episode_list|first as episode %}
-<section class="first-podcast">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12 col-md-6">
-        <span class="episode-number">
-          {% trans 'EPISODIO'%} {{ episode.index }}
-        </span>
-        <span>
-          <time datetime="{{ episode.pub_date|date:'c' }}" title="{{ episode.pub_date|date:'c' }}">{{ episode.pub_date|date:'j F Y' }}</time>
-        </span>
-        <h1>
-          <a href="{{ episode.get_absolute_url }}">
-          {{ episode.title | upper }}
-          </a>
-        </h1>
-        {% if episode.description %}
-        <p>{{ episode.description|safe }}</p>
-        {% endif %}
-        {% if episode.enclosure %}
-        {% with enclosure=episode.enclosure %}
 
-        {# Audio #}
-        {% if enclosure.type == 'audio/mpeg' or enclosure.type == 'audio/x-m4a' %}
-        <div id="wrapper">
-          <div class="title-player">{% trans 'EPISODIO'%} {{ episode.index }} - {{ episode.title | upper }}</div>
-          <audio controls>
-            <source src="{{ enclosure.file.url }}">
-          </audio>
-        </div>
-        {% endif %}
+{% include "podcast/poster.html" %}
 
-        <p><a href="{{ episode.get_absolute_download_url }}" class="pull-right download">{% trans 'Descargar' %}</a></p>
-        <p>{% if show.itunes %}<a href="{{ show.itunes }}">{% endif %}<img src="{% static 'podcast/img/itunes-badge.min.svg' %}" alt="{% trans 'Get it on iTunes' %}">{% if show.itunes %}</a>{% endif %}</p>
-
-        {% endwith %}
-        {% endif %}
-      </div>
-      <div class="col-sm-12 col-md-6 podcast-poster">
-        {% if episode.enclosure %}
-        {% with enclosure=episode.enclosure %}
-
-        {% if enclosure.poster %}
-        <a href="{{ episode.get_absolute_url }}"><img src="{{ enclosure.poster }}" alt="{{ episode.title }} artwork" class="podcast-artwork"></a>
-        {% else %}
-        <a href="{{ episode.get_absolute_url }}"><img src="{{ show.get_image_url }}" alt="{{ episode.title }} artwork" class="podcast-artwork"></a>
-        {% endif %}
-
-        {% endwith %}
-        {% endif %}
-      </div>
-    </div>
-  </div>
-</section>
 {% endwith %}
 
 <div class="container">
-  <div class="row">
-    {% for episode in episode_list %}
-    {% if forloop.first %}
+	<div class="row">
+		{% for episode in episode_list %}
+		{% if forloop.first %}
 
-    {% else %}
+		{% else %}
 
-    <div class="col-sm-6 col-md-3">
-      <div class="thumbnail overview-podcast">
-        {% if episode.enclosure %}
-        {% with enclosure=episode.enclosure %}
+		<div class="col-sm-6 col-md-3">
+			<div class="thumbnail overview-podcast">
+				{% if episode.enclosure %}
+				{% with enclosure=episode.enclosure %}
 
-        {% if enclosure.poster %}
-        <a href="{{ episode.get_absolute_url }}"><img src="{{ enclosure.poster }}" alt="{{ episode.title }} artwork"></a>
-        {% else %}
-        <a href="{{ episode.get_absolute_url }}"><img src="{{ show.get_image_url }}" alt="{{ episode.title }} artwork"></a>
-        {% endif %}
+				{% if enclosure.poster %}
+				{% with enclosure.poster as poster %}
+				{% thumbnail poster "255" crop="center" as im %}
+				<a href="{{ episode.get_absolute_url }}"><img src="{{ im.url}}" alt="{{ episode.title }} artwork"></a>
+				{% endthumbnail %}
+				{% endwith %}
+				{% else %}
+				{% with show.get_image_url as poster %}
+				{% thumbnail poster "255" crop="center" as im %}
+				<a href="{{ episode.get_absolute_url }}"><img src="{{ im.url }}" alt="{{ episode.title }} artwork"></a>
+				{% endthumbnail %}
+				{% endwith %}
+				{% endif %}
 
-        {% endwith %}
-        {% else %}
-        <a href="{{ episode.get_absolute_url }}"><img src="{{ show.get_image_url }}" alt="{{ episode.title }} artwork"></a>
-        {% endif %}
-        <div class="caption">
-          <h3><a href="{{ episode.get_absolute_url }}">{{ episode.title | upper }}</a></h3>
-        </div>
-      </div>
-    </div>
+				{% endwith %}
+				{% else %}
+				<a href="{{ episode.get_absolute_url }}"><img src="{{ show.get_image_url }}" alt="{{ episode.title }} artwork"></a>
+				{% endif %}
+				<div class="caption">
+					<h3><a href="{{ episode.get_absolute_url }}">{{ episode.title | upper }}</a></h3>
+				</div>
+			</div>
+		</div>
 
-    {% endif %}
-    {% endfor %}
-  </div>
+		{% endif %}
+		{% endfor %}
+	</div>
 </div>
 
 {% include 'podcast/pagination.html' %}
 
 <div class="container">
-  {% blocktrans count episode_count=page_obj.paginator.count %}
-  <h2>{{ episode_count }} EPISODIO</h2>
-  {% plural %}
-  <h2>{{ episode_count }} EPISODIOS</h2>
-  {% endblocktrans %}
+	{% blocktrans count episode_count=page_obj.paginator.count %}
+	<h2>{{ episode_count }} EPISODIO</h2>
+	{% plural %}
+	<h2>{{ episode_count }} EPISODIOS</h2>
+	{% endblocktrans %}
 
-  {% if show.description %}
-  <p>{{ show.description }}</p>
-  {% endif %}
+	{% if show.description %}
+	<p>{{ show.description }}</p>
+	{% endif %}
 
 </div>
 
@@ -132,11 +91,11 @@
 <script src="{% static 'script/audioplayer.min.js' %}"></script>
 <script>
 $(function(){
-  $('audio').audioPlayer({
-    classPrefix: 'audioplayer',
-    strPlay: 'Play',
-    strPause: 'Pause',
-  });
+	$('audio').audioPlayer({
+		classPrefix: 'audioplayer',
+		strPlay: 'Play',
+		strPause: 'Pause',
+	});
 });
 </script>
 {% endblock %}
