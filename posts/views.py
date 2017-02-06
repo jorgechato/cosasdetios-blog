@@ -3,6 +3,7 @@ from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import TemplateView
 from cosasdetios.settings import api
+from django.shortcuts import get_object_or_404
 
 from .models import Post
 
@@ -17,10 +18,7 @@ class ThoughtsListView(TemplateView):
             page = int(self.request.GET.get('page'))
             page = 0 if page == 0 else page - 1
 
-        # 825652419891695617  @beerwhisper
-        # 202708941           @orggue
-        context['tweets'] = api.GetUserTimeline(user_id=825652419891695617,
-                                                include_rts=False,
+        context['tweets'] = api.GetUserTimeline(include_rts=False,
                                                 count=20,
                                                 max_id=page)
         return context

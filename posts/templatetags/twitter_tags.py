@@ -24,7 +24,7 @@ def urlize_tweet_text(tweet):
         from urllib.parse import quote
     hashtag_url = '<a href="//twitter.com/hashtag/%s" target="_blank">#%s</a>'
     user_url = '<a href="//twitter.com/%s" target="_blank">@%s</a>'
-    text = tweet.text
+    text = tweet.full_text
     for hash in tweet.hashtags:
         text = text.replace('#%s' % hash.text, hashtag_url % (quote(hash.text.encode("utf-8")), hash.text))
     for mention in tweet.user_mentions:
@@ -34,13 +34,13 @@ def urlize_tweet_text(tweet):
 
 @register.filter()
 def clean_media_urls(tweet):
-    text = tweet.text
+    text = tweet.full_text
     media = tweet.media
     if media:
         for url in media:
             text = text.replace(url.url, "")
 
-    tweet.text = text
+    tweet.full_text = text
     return tweet
 
 
@@ -49,9 +49,9 @@ def expand_tweet_urls(tweet):
     """ Replace shortened URLs with long URLs in the twitter status
         Should be used before urlize_tweet
     """
-    text = tweet.text
+    text = tweet.full_text
     urls = tweet.urls
     for url in urls:
         text = text.replace(url.url, '<a href="%s" target="_blank">%s</a>' % (url.expanded_url, url.url))
-    tweet.text = Emoji.replace_unicode(text)
+    tweet.full_text = Emoji.replace_unicode(text)
     return tweet

@@ -2,62 +2,80 @@
 {% load thumbnail %}
 
 <div class="sidebar">
-  <p class="title">El show COSAS DE TÍOS</p>
-  <div class="row">
-    {% for object in podcast %}
-    <div class="sidebar-post">
-      <div class="col-md-4 col-xs-4">
-        <a href="{{ object.get_absolute_url }}">
-          {% if object.enclosure %}
-          {% with enclosure=object.enclosure %}
+	<p class="title">Patreon (1, 4, 10 o 24) dólar</p>
+	<p>
+	<div class="row">
+		<div class="col-md-3 col-xs-3">
+			<a href="//www.patreon.com/cosasdetios">
+				<img style="width:100%;" class="patreon-logo-mini" src="//www.patreon.com/images/patreon_navigation_logo_mini_orange.png" alt="Patreon">
+			</a>
+		</div>
+		<div class="col-md-9 col-xs-9">
+			<p>
+			<a href="//www.patreon.com/cosasdetios">
+				{{ global_preferences.general_patreon }}
+			</a>
+			</p>
+		</div>
+	</div>
+	</p>
 
-          {% if enclosure.poster %}
-          {% thumbnail enclosure.poster "100x100" crop="center" as im %}
-          <a href="{{ object.get_absolute_url }}"><img src="{{ im.url }}" alt="{{ object.title|safe }} artwork" class="sidebar-img"></a>
-          {% endthumbnail %}
-          {% else %}
-          {% thumbnail object.show.get_image_url "100x100" crop="center" as im %}
-          <a href="{{ object.get_absolute_url }}"><img src="{{ im.url }}" alt="{{ object.title|safe }} artwork" class="sidebar-img"></a>
-          {% endthumbnail %}
-          {% endif %}
+	<p class="title">El show COSAS DE TÍOS</p>
+	<div class="row">
+		{% for object in podcast %}
+		<div class="sidebar-post">
+			<div class="col-md-4 col-xs-4">
+				<a href="{{ object.get_absolute_url }}">
+					{% if object.enclosure %}
+					{% with enclosure=object.enclosure %}
 
-          {% endwith %}
-          {% endif %}
-        </a>
-        <a class="sidebar-podcast" href="{{ object.get_absolute_url }}">
-          <p>{{ object.title | title|safe }}</p>
-        </a>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
+					{% if enclosure.poster %}
+					{% thumbnail enclosure.poster "100x100" crop="center" as im %}
+					<a href="{{ object.get_absolute_url }}"><img src="{{ im.url }}" alt="{{ object.title|safe }} artwork" class="sidebar-img"></a>
+					{% endthumbnail %}
+					{% else %}
+					{% thumbnail object.show.get_image_url "100x100" crop="center" as im %}
+					<a href="{{ object.get_absolute_url }}"><img src="{{ im.url }}" alt="{{ object.title|safe }} artwork" class="sidebar-img"></a>
+					{% endthumbnail %}
+					{% endif %}
 
-  {% for object in items %}
-  {% if object.title %}
-  <p class="title">{{ object.title|safe }}</p>
-  {% endif %}
-  <p>{{ object.content | safe }}</>
-  {% endfor %}
+					{% endwith %}
+					{% endif %}
+				</a>
+				<a class="sidebar-podcast" href="{{ object.get_absolute_url }}">
+					<p>{{ object.title | title|safe }}</p>
+				</a>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
 
-  <p class="title">Historias increíbles</p>
-  {% for object in posts %}
-  <div class="row sidebar-post">
-    <div class="col-md-3 col-xs-3">
-      <a href="{{ object.get_absolute_url }}">
-        {% if object.thumbnail %}
-        {% thumbnail object.thumbnail.url "70" crop="center" as im %}
-        <img src="{{ im.url }}" class="sidebar-img">
-        {% endthumbnail %}
-        {% endif %}
-      </a>
-    </div>
-    <div class="col-md-9 col-xs-9">
-      <p>
-      <a href="{{ object.get_absolute_url }}">
-        {{ object.title|safe }}
-      </a>
-      </p>
-    </div>
-  </div>
-  {% endfor %}
+	{% for object in items %}
+	{% if object.title %}
+	<p class="title">{{ object.title|safe }}</p>
+	{% endif %}
+	<p>{{ object.content | safe }}</p>
+	{% endfor %}
+
+	<p class="title">Historias increíbles</p>
+	{% for object in posts %}
+	<div class="row sidebar-post">
+		<div class="col-md-3 col-xs-3">
+			<a href="{{ object.get_absolute_url }}">
+				{% if object.thumbnail %}
+				{% thumbnail object.thumbnail.url "70" crop="center" as im %}
+				<img src="{{ im.url }}" class="sidebar-img">
+				{% endthumbnail %}
+				{% endif %}
+			</a>
+		</div>
+		<div class="col-md-9 col-xs-9">
+			<p>
+			<a href="{{ object.get_absolute_url }}">
+				{{ object.title|safe }}
+			</a>
+			</p>
+		</div>
+	</div>
+	{% endfor %}
 </div>

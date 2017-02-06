@@ -42,3 +42,10 @@ class TwitterUser(StringPreference):
     section = general
     name = 'twitter'
     default = '@beerwhisper'
+
+
+@global_preferences_registry.register
+class PatreonAD(StringPreference):
+    section = general
+    name = 'patreon'
+    default = 'La vida debería ser una puta locura. Ahora es tu oportunidad de ayudarme.'
