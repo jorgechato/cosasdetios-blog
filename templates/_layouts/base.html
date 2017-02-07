@@ -4,27 +4,22 @@
 
 <html lang="es">
 	<head>
-		<meta charset="UTF-8">
-		<meta name="author" content="Jorge Chato"/>
+		<meta charset="UTF-8"></meta>
+		<meta name="author" content="Jorge Chato"></meta>
 		{% block meta%}
-		<meta name="Description" content="{{ global_preferences.general_description }}"/>
-		<meta name="Keywords" content="{{ global_preferences.general_keywords }}"/>
+		<meta name="Description" content="{{ global_preferences.general_description }}"></meta>
+		<meta name="Keywords" content="{{ global_preferences.general_keywords }}"></meta>
 		{% endblock %}
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-		<meta name="theme-color" content="#D3367E"/>
-		<meta name="twitter:card" content="summary_large_image"/>
-		<meta name="twitter:title" content="{{ global_preferences.general_title | upper }}"/>
-		<meta name="twitter:site" content="{{ global_preferences.general_twitter }}"/>
-		<meta name="twitter:creator" content="{{ global_preferences.general_twitter }}"/>
-		<meta name="twitter:description" content="{{ global_preferences.general_description }}"/>
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content="{{ global_preferences.general_title | upper }}"/>
-		<meta property="og:site_name" content="{{ global_preferences.general_title | upper }}"/>
-		<meta property="og:description" content="{{ global_preferences.general_description }}"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"></meta>
+		<meta name="theme-color" content="#D3367E"></meta>
+		<meta name="twitter:card" content="summary_large_image"></meta>
+		<meta name="twitter:title" content="{{ global_preferences.general_title | upper }}"></meta>
+		<meta name="twitter:site" content="{{ global_preferences.general_twitter }}"></meta>
+		<meta name="twitter:creator" content="{{ global_preferences.general_twitter }}"></meta>
+		<meta name="twitter:description" content="{{ global_preferences.general_description }}"></meta>
 		{% static 'img/logo.png' as poster%}
 		{% thumbnail poster "450" format="PNG" crop="center" as im %}
-		<meta property="og:image" content="{{ im.url }}">
-		<meta name="twitter:image" content="{{ im.url }}">
+		<meta name="twitter:image:src" content="{{ im.url }}"></meta>
 		{% endthumbnail %}
 		<base href="/" target=""/>
 		<link rel="icon" href="{%  static 'img/favicon.png' %}">
