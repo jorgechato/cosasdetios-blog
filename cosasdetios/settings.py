@@ -14,10 +14,8 @@ ALLOWED_HOSTS = [
         'localhost',
         '0.0.0.0',
         '127.0.0.1',
-        'https://cosasdetios.com',
-        'http://cosasdetios.com',
-        'https://www.cosasdetios.com',
-        'http://www.cosasdetios.com',
+        'cosasdetios.com',
+        'www.cosasdetios.com',
         ]
 
 SITE_ID = 2
