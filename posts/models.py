@@ -53,7 +53,8 @@ class SideBar(models.Model):
 
     def save(self, *arg, **kwargs):
         self.content = Emoji.replace(self.content)
-        super(Post, self).save(*arg, **kwargs)
+        self.title = Emoji.replace(self.title)
+        super(SideBar, self).save(*arg, **kwargs)
 
     class Meta:
         unique_together = ('title', 'order')

@@ -42,8 +42,8 @@ class CategoryAdmin(ImportExportActionModelAdmin):
 
 
 class SideBarAdmin(ImportExportActionModelAdmin):
-    list_display = ('title', 'order', 'cover_content',)
-    list_display_links = ('title',)
+    list_display = ('content', 'title', 'order', 'cover_content',)
+    list_display_links = ('content', 'title')
     list_filter = ('title', 'categories_id')
     search_fields = ('title', 'categories_id')
     filter_horizontal = ('categories_id',)
