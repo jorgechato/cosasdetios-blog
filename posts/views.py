@@ -6,6 +6,7 @@ from cosasdetios.settings import api
 from django.shortcuts import get_object_or_404
 
 from .models import Post
+from .models import Category
 
 
 class ThoughtsListView(TemplateView):
@@ -38,3 +39,8 @@ class PostListView(ListView):
                                    public=True,
                                    published_at__lte=timezone.now())
         return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PostListView, self).get_context_data(*args, **kwargs)
+        context['category'] = get_object_or_404(Category, slug=self.kwargs['slug'])
+        return context
