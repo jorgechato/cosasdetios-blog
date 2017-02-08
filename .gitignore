@@ -94,3 +94,4 @@ media
 static
 compass/.sass-cache
 **/local_settings.py
+**/*.swp

@@ -1,0 +1,25 @@
+.sidebar{
+  a{
+    font-weight: normal;
+  }
+
+  .title{
+    font-weight: bold;
+  }
+
+  .sidebar-post{
+    a{
+      font-size: 1em;
+    }
+
+    .sidebar-podcast{
+      font-weight: bold;
+      font-size: .8em;
+      text-align: center;
+    }
+
+    .sidebar-img{
+      max-width: 100%;
+    }
+  }
+}

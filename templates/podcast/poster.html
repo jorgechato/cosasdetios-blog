@@ -1,65 +1,43 @@
 {% load thumbnail %}
 {% load i18n staticfiles %}
 
-<section class="first-podcast">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<span class="episode-number">
-					{% trans 'EPISODIO'%} {{ episode.index }}
-				</span>
-				<span>
-					<time datetime="{{ episode.pub_date|date:'c' }}" title="{{ episode.pub_date|date:'c' }}">{{ episode.pub_date|date:'j F Y' }}</time>
-				</span>
-				<h1>
-					{{ episode.title | upper }}
-				</h1>
-				{% if episode.description %}
-				<p>{{ episode.description|safe }}</p>
-				{% endif %}
-				{% if episode.enclosure %}
-				{% with enclosure=episode.enclosure %}
+<section class="first-podcast parallax" style='
+background-image: url("{%  static 'img/cover.png' %}");'>
 
-				{# Audio #}
-				{% if enclosure.type == 'audio/mpeg' or enclosure.type == 'audio/x-m4a' %}
-				<div id="wrapper">
-					<div class="title-player">{% trans 'EPISODIO'%} {{ episode.index }} - {{ episode.title | upper }}</div>
-					<audio controls>
-						<source src="{{ enclosure.file.url }}">
-					</audio>
-				</div>
-				{% endif %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<span class="episode-number">
+				{% trans 'EPISODIO'%} {{ episode.index }}
+			</span>
+			<span>
+				<time datetime="{{ episode.pub_date|date:'c' }}" title="{{ episode.pub_date|date:'c' }}">{{ episode.pub_date|date:'j F Y' }}</time>
+			</span>
+			<h1>
+				{{ episode.title | upper }}
+			</h1>
+			{% if episode.description %}
+			<p>{{ episode.description|safe }}</p>
+			{% endif %}
+			{% if episode.enclosure %}
+			{% with enclosure=episode.enclosure %}
 
-				<p><a href="{{ episode.get_absolute_download_url }}" class="pull-right download">{% trans 'Descargar' %}</a></p>
-				<p>{% if show.itunes %}<a href="{{ show.itunes }}">{% endif %}<img src="{% static 'podcast/img/itunes-badge.min.svg' %}" alt="{% trans 'Get it on iTunes' %}">{% if show.itunes %}</a>{% endif %}</p>
-
-				{% endwith %}
-				{% endif %}
+			{# Audio #}
+			{% if enclosure.type == 'audio/mpeg' or enclosure.type == 'audio/x-m4a' %}
+			<div id="wrapper">
+				<div class="title-player">{% trans 'EPISODIO'%} {{ episode.index }} - {{ episode.title | upper }}</div>
+				<audio controls>
+					<source src="{{ enclosure.file.url }}">
+				</audio>
 			</div>
+			{% endif %}
 
+			<p><a href="{{ episode.get_absolute_download_url }}" class="pull-right download">{% trans 'Descargar' %}</a></p>
+			<p>{% if show.itunes %}<a href="{{ show.itunes }}">{% endif %}<img src="{% static 'podcast/img/itunes-badge.min.svg' %}" alt="{% trans 'Get it on iTunes' %}">{% if show.itunes %}</a>{% endif %}</p>
 
-			<div class="col-sm-12 col-md-6 podcast-poster">
-				{% if episode.enclosure %}
-				{% with enclosure=episode.enclosure %}
-
-				{% if enclosure.poster %}
-				{% with enclosure.poster as thumb %}
-				{% thumbnail thumb "500" crop="center" as im %}
-				<a href="{{ episode.get_absolute_url }}"><img src="{{ im.url }}" alt="{{ episode.title }} artwork" class="podcast-artwork"></a>
-				{% endthumbnail %}
-				{% endwith %}
-
-				{% else %}
-				{% with episode.show.get_image_url as thumb %}
-				{% thumbnail thumb "500" crop="center" as im %}
-				<a href="{{ episode.get_absolute_url }}"><img src="{{ im.url }}" alt="{{ episode.title }} artwork" class="podcast-artwork"></a>
-				{% endthumbnail %}
-				{% endwith %}
-				{% endif %}
-
-				{% endwith %}
-				{% endif %}
-			</div>
+			{% endwith %}
+			{% endif %}
 		</div>
 	</div>
+</div>
 </section>

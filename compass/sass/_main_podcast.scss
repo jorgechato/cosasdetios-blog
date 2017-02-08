@@ -1,0 +1,42 @@
+.first-podcast{
+	background: $main-color;
+	margin: 2em 0;
+	padding: 3em 0;
+
+	audio{
+		width: 100%;
+		max-width: 100%;
+		margin: 2em 0 ;
+	}
+
+	.download{
+		margin-top: -1em;
+	}
+
+	.episode-number{
+		background: black;
+		color: white;
+		padding: 0 5px;
+		margin-right: 5px;
+	}
+
+	.podcast-poster{
+		text-align: center;
+
+		.podcast-artwork{
+			width: 90%;
+		}
+	}
+}
+
+.parallax{
+	background-attachment: fixed;
+	background-position: right top;
+	background-repeat: no-repeat;
+	background-size: auto 100%;
+}
+
+.overview-podcast{
+	max-height: 40em;
+	overflow: hidden;
+}
