@@ -24,6 +24,13 @@ class GoogleAnalytics(StringPreference):
 
 
 @global_preferences_registry.register
+class GoogleADs(StringPreference):
+    section = general
+    name = 'adsId'
+    default = 'ca-pub-0000000000000000'
+
+
+@global_preferences_registry.register
 class Description(LongStringPreference):
     section = general
     name = 'description'
@@ -45,7 +52,7 @@ class TwitterUser(StringPreference):
 
 
 @global_preferences_registry.register
-class PatreonAD(StringPreference):
+class PatreonAD(LongStringPreference):
     section = general
     name = 'patreon'
     default = 'La vida debería ser una puta locura. Ahora es tu oportunidad de ayudarme.'
