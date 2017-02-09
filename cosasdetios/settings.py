@@ -167,7 +167,7 @@ CKEDITOR_CONFIGS = {
                 {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste',
                     'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
                 {'name': 'links', 'items': ['Link', 'Unlink']},
-                {'name': 'insert', 'items': ['Image','Upload', 'Table',
+                {'name': 'insert', 'items': ['Iframe', 'Image','Upload', 'Table',
                     'HorizontalRule', 'Smiley', 'SpecialChar']}, '/',
                 {'name': 'basicstyles', 'items': [
                     'Bold', 'Italic', 'Underline', 'Strike',
@@ -183,9 +183,11 @@ CKEDITOR_CONFIGS = {
                 ],
             'toolbar': 'OrggueToolbar',
             'tabSpaces': 4,
+            'allowedContent': True,
             'extraPlugins': ','.join(
                 [
                     'image2',
+                    'iframe',
                     'div',
                     'autolink',
                     'autoembed',
