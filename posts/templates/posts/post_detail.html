@@ -2,6 +2,12 @@
 
 {% block title %}{{ object.title | title }} - {{ block.super }}{% endblock title %}
 
+{% block image%}
+{% if object.thumbnail %}
+<meta name="twitter:image:src" content="{{ object.thumbnail.url }}"></meta>
+{% endif %}
+{% endblock %}
+
 {% block content%}
 <div class="container post-view">
 	{% include "_modules/nav.html" %}

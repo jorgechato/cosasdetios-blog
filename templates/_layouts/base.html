@@ -17,10 +17,9 @@
 		<meta name="twitter:site" content="{{ global_preferences.general_twitter }}"></meta>
 		<meta name="twitter:creator" content="{{ global_preferences.general_twitter }}"></meta>
 		<meta name="twitter:description" content="{{ global_preferences.general_description }}"></meta>
-		{% static 'img/logo.png' as poster%}
-		{% thumbnail poster "450" format="PNG" crop="center" as im %}
-		<meta name="twitter:image:src" content="{{ im.url }}"></meta>
-		{% endthumbnail %}
+		{% block image%}
+		<meta name="twitter:image:src" content="{% static 'img/logo.png' %}"></meta>
+		{% endblock %}
 		<base href="/" target=""/>
 		<link rel="icon" href="{%  static 'img/favicon.png' %}">
 		<title>{% block title %}{{ global_preferences.general_title | upper }}{% endblock %}</title>
