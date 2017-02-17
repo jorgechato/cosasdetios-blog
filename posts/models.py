@@ -13,7 +13,7 @@ def content_file_name(instance, filename):
     ext = filename.split('.')[-1]
     slug = slugify(instance.title)
     today = timezone.now().strftime('%Y-%b-%d')
-    filename = "{}/{}/{}-cover.{}".format(today, slug, slug, ext)
+    filename = "{}/{}/cover.{}".format(today, slug, ext)
     return os.path.join('historias/', filename)
 
 
